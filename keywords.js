@@ -1,11 +1,12 @@
 // Extrahiert alle Keywords aus einem JSON-Objekt obj
 // Ergebnis ist ein Array keywords
+// Rekursives Durchlaufen eines JSON-Objects ohne das meta
 
 const fs = require('fs');
 
 function extractKeywordsFromJson(obj, keywords) {
     for(var key in obj) {
-        if(obj[key] instanceof Object) {
+        if( key !== "meta" && obj[key] instanceof Object) { 
             extractKeywordsFromJson(obj[key],keywords);
         } else {
             let value = obj[key];
