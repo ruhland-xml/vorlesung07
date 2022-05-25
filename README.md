@@ -30,6 +30,20 @@ const COLLECTION_NAME = "geonames";
 ```
 
 
-## Keywords aus einem JSON Objekt berechnen
+## updatemongo.js
 
-Das wird mit der Bibliotheksfunktion keywords.js erledigt.
+Das Programm wird aufgerufen mit
+
+```
+node updatemongo.js
+```
+
+Liest alle JSON-Objekte der Collection, berechnet die keywords mit der Bibliotheksfunktion, und macht einen
+Update des Objekts, indem es das meta keywords jedem Objekt hinzufügt
+
+```
+meta: {
+   keywords: ["wort1","wort2",...]
+} 
+```
+
