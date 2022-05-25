@@ -3,6 +3,7 @@
 // Rekursives Durchlaufen eines JSON-Objects ohne das meta
 
 const fs = require('fs');
+const daitchMokotoff = require('talisman/phonetics/daitch-mokotoff');
 
 function extractKeywordsFromJson(obj, keywords) {
     for(var key in obj) {
@@ -23,11 +24,30 @@ function extractKeywordsFromJson(obj, keywords) {
     }
 };
 
+function getSimilarDoichMokotoff(keywords){
+    let phonetics = [];
+    for ( let i=0; i<keywords.length; i++ ){
+        let keyword = keywords[i];
+        let results = daitchMokotoff(keyword);
+        for ( let k=0; k<results.length; k++ ){
+            result = results[k];
+            if ( phonetics.includes(result) === false ){
+                let without_trailing_zeros = result.replace(/0+$/g, "");
+                if ( without_trailing_zeros.length > 0 )
+                    phonetics.push(without_trailing_zeros);
+            }
+        }
+    }
+    return phonetics;
+}
+
 module.exports = {
     getKeywords: function(obj) { 
         let keywords = [];
         extractKeywordsFromJson(obj,keywords);
-        return keywords;
+        let phonetics = getSimilarDoichMokotoff(keywords);
+        let all_words = keywords.concat(phonetics);
+        return all_words;
     }
 }
 

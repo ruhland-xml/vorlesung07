@@ -47,3 +47,36 @@ meta: {
 } 
 ```
 
+## MongoDB Index auf einen Array
+
+Um eine Abfrage zu beschleunigen muss man einen Index auf die keywords (Array) machen
+
+In der MongoDB Konsole ( im unteren Teil von Compass )
+
+```
+use xmldb
+db.geonames.createIndex( { "meta.keywords": 1})
+```
+
+Das kann man mit einer relationalen Datenbank nicht machen - Index auf einen Array von Strings.
+
+## Abfrage in der MongoDB
+
+### Aufgabe
+
+Selektiere (find) alle Datensätze (JSON) aus der Collection (Table) geonames, bei denen die keywords
+mit den Worten "wort1" "wort2" "wort3" beginnen. ( Substring search )
+
+Der find() String sieht dann so aus
+
+```
+{ $and: [{"meta.keywords":/^wort1/},{"meta.keywords":/^wort2/},{"meta.keywords":/^wort3/}]}
+```
+
+## Ähnlichkeitssuche
+
+Hier wird das npm Paket Talisman verwendet mit dem Doitch Mokotoff Algorithmus
+
+```
+npm i -D talisman
+```
