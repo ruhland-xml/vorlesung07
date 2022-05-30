@@ -31,11 +31,9 @@ function getSimilarDoichMokotoff(keywords){
         let results = daitchMokotoff(keyword);
         for ( let k=0; k<results.length; k++ ){
             result = results[k];
-            if ( phonetics.includes(result) === false ){
-                let without_trailing_zeros = result.replace(/0+$/g, "");
-                if ( without_trailing_zeros.length > 0 )
-                    phonetics.push(without_trailing_zeros);
-            }
+            let without_trailing_zeros = result.replace(/0+$/g, "");
+            if ( without_trailing_zeros.length > 0 && phonetics.includes(without_trailing_zeros) === false)
+                phonetics.push(without_trailing_zeros);
         }
     }
     return phonetics;
